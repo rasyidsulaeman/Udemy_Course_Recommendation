@@ -20,7 +20,7 @@ menu_id = hc.nav_bar(menu_definition=menu_data, home_name='Home', override_theme
 
 with st.sidebar:
     st.title('Udemy Course App')
-    st.write('Made using **streamlit** by **Novita Fitriani**')
+    st.write('Made using **streamlit** by **Rasyid Sulaeman**')
 
 path = 'dataset/udemy_sample_50.csv'
 
