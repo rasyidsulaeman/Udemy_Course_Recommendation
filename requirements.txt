@@ -2,7 +2,6 @@ pandas
 matplotlib
 streamlit
 hydralit_components
-sklearn
-surprise
-collections
+scikit-learn
+scikit-surprise
 plotly
