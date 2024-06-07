@@ -275,7 +275,12 @@ if menu_id == 'Recommendation':
             
             st.subheader(f"A Snapshot of {user_pick}'s History Watching")
 
-            cols = st.columns(hist.shape[0])
+            if hist.shape[0] < 5:
+                length = hist.shape[0]
+            else:
+                length = 5
+                
+            cols = st.columns(length)
             
             hist = hist.head(5)
             pred = pred.head(5)
