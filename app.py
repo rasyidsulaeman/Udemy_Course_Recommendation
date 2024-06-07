@@ -305,10 +305,17 @@ if menu_id == 'Recommendation':
 
             st.info(f'Here are top 5 recommendation courses for {user_pick}')
             
-            cols = st.columns(5)
+            if pred.shape[0] < 5 and pred.shape[0] > 0:
+                length = pred.shape[0]
+            else:
+                length = 5
+
+            cols = st.columns(length)
             
-            try:
-               
+            if pred.shape[0] == 0:
+                st.warning(f"Ooppss.. I'm sorry, since you only rated {hist.shape[0]} course, you still don't get the recommendation from our engine. Please pick you as a **New User**")
+            
+            else:
                 for i in range(len(cols)):
 
                     cols[i].write(f"[{pred['title'][i]}](%s)" % pred['course_url'][i] )
@@ -322,10 +329,7 @@ if menu_id == 'Recommendation':
                     **Total Subscribers** : {pred['num_subscribers'][i]:,} learners
                     """
                     cols[i].caption(caps)
-
-            except:
-                st.warning(f"Ooppss.. I'm sorry, since you only rated {hist.shape[0]} course, you still don't get the recommendation from our engine. Please pick you as a **New User**")
-
+                
             st.divider()
 
 if menu_id == 'Summary':
