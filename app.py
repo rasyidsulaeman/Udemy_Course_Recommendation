@@ -22,7 +22,7 @@ with st.sidebar:
     st.title('Udemy Course App')
     st.write('Made using **streamlit** by **Rasyid Sulaeman**')
 
-path = 'data/udemy_sample_50.csv'
+path = 'udemy_data/udemy_sample_30.csv'
 
 dp = DataProcess(path)
 df = dp.load()
