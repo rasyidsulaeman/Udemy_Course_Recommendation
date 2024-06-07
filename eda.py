@@ -22,7 +22,7 @@ class DataProcess:
 
     def unique(self, df):
     
-        data = df.drop_duplicates(subset='title')
+        data = df.drop_duplicates(subset='title').reset_index(drop=True)
         return data[['course_id', 'title', 'category', 'subcategory', 'topic', 'price', 'headline', 
                      'avg_rating', 'num_subscribers', 'course_url', 'instructor_name',  'image']]
 

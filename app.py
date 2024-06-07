@@ -198,7 +198,7 @@ if menu_id == 'Recommendation':
             with st.spinner('The model is calculated. Please wait ...'):
 
                 st.image(df_index['image'][title_id], caption='{} | {}'.format(df_index['category'][title_id],
-                                                                               df_index['subcategory'][title_id]))
+                                                                               df_index['topic'][title_id]))
                 st.write(f'**Course Link** : [{title}](%s)' % df_index['course_url'][title_id])
                 caps = f"""
                         *{df_index['headline'][title_id]}* \n
@@ -211,7 +211,8 @@ if menu_id == 'Recommendation':
                 st.divider()
                 st.info(f'Since you pick course about {title}, here are top 10 recommendation courses for you!')
 
-                top_n = cb_recs.get_top_n(title)
+                top_n = cb_recs.recommendations(title)
+
                 id_list = [id_mapping[title] for title in top_n]
 
                 cols = st.columns(5)
@@ -220,7 +221,7 @@ if menu_id == 'Recommendation':
 
                     cols[i].write(f'[{top_n[i]}](%s)' % df_index['course_url'][id_list[i]])
                     cols[i].image(df_index['image'][id_list[i]], caption='{} | {}'.format(df_index['category'][id_list[i]],
-                                                                                        df_index['subcategory'][id_list[i]]))
+                                                                                          df_index['topic'][id_list[i]]))
                     
                     caps = f"""
                             *{df_index['headline'][id_list[i]]}* \n
@@ -283,8 +284,8 @@ if menu_id == 'Recommendation':
 
                 cols[i].write(f"[{hist['title'][i]}](%s)" % hist['course_url'][i] )
                 cols[i].image(hist['image'][i], 
-                            caption='{} | {}'.format(hist['category'][i],
-                                                     hist['subcategory'][i]))
+                              caption='{} | {}'.format(hist['category'][i],
+                                                       hist['subcategory'][i]))
                 caps = f"""
                 *{hist['headline'][i]}* \n
                 **Price** : $ {hist['price'][i]}\n

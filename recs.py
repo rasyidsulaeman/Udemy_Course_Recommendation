@@ -1,4 +1,3 @@
-from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
 import pandas as pd
@@ -11,28 +10,34 @@ class ContentBased:
     
     def __init__(self, df):
         self.df = df 
+                       
+    def compute_similarity(self):
 
-    def compute_similarity(self, base:str = 'subcategory'):
-        sub = self.df[base].str.split('|').explode()
+        unique = self.df
+        dummies = pd.get_dummies(unique['subcategory']).groupby(level=0).sum()
+        similarity = cosine_similarity(dummies)
+        return similarity
     
-        tfidf = TfidfVectorizer(ngram_range=(1,2))
-        tfidf_matrix = tfidf.fit_transform(sub)
-        
-        similarity = cosine_similarity(tfidf_matrix)
-        similarity_df = pd.DataFrame(similarity, index=self.df['title'], columns=self.df['title'])
+        # Function to get the recommended course
+    def recommendations(self, title, top_n=10):
 
-        return similarity_df
-    
-    def get_top_n(self, title, sim=None, n=10):
-        
-        if sim == None:
-            sim = self.compute_similarity()
+        unique_df = self.df
+        similarity = self.compute_similarity()
 
-        course_index = sim.index.get_loc(title)
-        
-        top_10 = sim.iloc[course_index].sort_values(ascending=False)[1:n+1]
+        # Find the index of the courses with the given title
+        idx = unique_df[unique_df['title'] == title].index[0]
 
-        return top_10.index.tolist()
+        # Get the cosine similarity scores for the courses
+        similarity_scores = list(enumerate(similarity[idx]))
+
+        # Sort the similarity scores in descending order
+        similarity_scores = sorted(similarity_scores, key=lambda x: x[1], reverse=True)
+
+        # Get the top_n courses indices
+        courses_indices = [i[0] for i in similarity_scores[1:top_n+1]]
+
+        # Return the top_n most similar courses
+        return unique_df['title'].iloc[courses_indices].values.tolist()
 
 
 class CollaborativeFiltering:
