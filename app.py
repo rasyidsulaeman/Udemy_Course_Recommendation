@@ -22,7 +22,7 @@ with st.sidebar:
     st.title('Udemy Course App')
     st.write('Made using **streamlit** by **Rasyid Sulaeman**')
 
-path = 'udemy_data/udemy_sample_30.csv'
+path = 'data/udemy_sample_30.csv'
 
 dp = DataProcess(path)
 df = dp.load()
@@ -275,7 +275,7 @@ if menu_id == 'Recommendation':
             
             st.subheader(f"A Snapshot of {user_pick}'s History Watching")
 
-            cols = st.columns(5)
+            cols = st.columns(hist.shape[0])
             
             hist = hist.head(5)
             pred = pred.head(5)
@@ -297,25 +297,32 @@ if menu_id == 'Recommendation':
 
             st.divider()
             st.subheader(f'Course Recommendation for {user_pick}')
-            
-            st.info(f'Here are top 10 recommendation courses for {user_pick}')
+
+            st.info(f'Here are top 5 recommendation courses for {user_pick}')
             
             cols = st.columns(5)
             
-            for i in range(len(cols)):
+            try:
+               
+                for i in range(len(cols)):
 
-                cols[i].write(f"[{pred['title'][i]}](%s)" % pred['course_url'][i] )
-                cols[i].image(pred['image'][i], 
-                            caption='{} | {}'.format(pred['category'][i],
-                                                     pred['subcategory'][i]))
-                caps = f"""
-                *{pred['headline'][i]}* \n
-                **Price** : $ {pred['price'][i]}\n
-                **Rating** : {round(pred['avg_rating'][i],2)} :star: \n 
-                **Total Subscribers** : {pred['num_subscribers'][i]:,} learners
-                """
-                cols[i].caption(caps)
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+                    cols[i].write(f"[{pred['title'][i]}](%s)" % pred['course_url'][i] )
+                    cols[i].image(pred['image'][i], 
+                                caption='{} | {}'.format(pred['category'][i],
+                                                        pred['subcategory'][i]))
+                    caps = f"""
+                    *{pred['headline'][i]}* \n
+                    **Price** : $ {pred['price'][i]}\n
+                    **Rating** : {round(pred['avg_rating'][i],2)} :star: \n 
+                    **Total Subscribers** : {pred['num_subscribers'][i]:,} learners
+                    """
+                    cols[i].caption(caps)
+
+            except:
+                st.warning(f"Ooppss.. I'm sorry, since you only rated {hist.shape[0]} course, you still don't get the recommendation from our engine. Please pick you as a **New User**")
+
+            st.divider()
+
 if menu_id == 'Summary':
 
     st.title('Summary')
