@@ -5,3 +5,4 @@ hydralit_components
 scikit-learn
 scikit-surprise
 plotly
+numpy
