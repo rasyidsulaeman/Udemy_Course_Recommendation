@@ -1,8 +1,8 @@
-pandas
-matplotlib
 streamlit
+pandas
+numpy
+matplotlib
 hydralit_components
 scikit-learn
 scikit-surprise
 plotly
-numpy
