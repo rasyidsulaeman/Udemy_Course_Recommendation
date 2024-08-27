@@ -20,7 +20,8 @@ menu_id = hc.nav_bar(menu_definition=menu_data, home_name='Home', override_theme
 
 with st.sidebar:
     st.title('Udemy Course App')
-    st.write('Made using **streamlit** by **Rasyid Sulaeman**')
+    st.write('**Project Leader** : Rasyid Sulaeman')
+    st.write('**Project Analyst** : Novita Fitriani')
 
 path = 'data/udemy_sample_30.csv'
 
@@ -404,6 +405,8 @@ if menu_id == 'Contact Me':
     
     st.header('Author')
 
+    st.write("#### Project Leader")
+
     author = """
     Hello, I'm Rasyid Sulaeman. I graduated from University of Indonesia with major in Physics. After graduated, I worked in educational startup company CoLearn for 2+ years as a STEM Expert. 
     During my study and career, I have been exposed with data analyzing which drives our overal company and business works, that's why I love and want to pursue data scientist. 
@@ -424,4 +427,27 @@ if menu_id == 'Contact Me':
 
     st.info(author)
 
+    st.divider()
+
+    st.write("#### Project Analyst")
+
+    author_2 = """
+    Hello, I'm Novita Fitriani. I graduated from Universitas Negeri Jakarta with a major in Physics. 
+    After graduation, I worked at an educational startup company, CoLearn, for over 2 years as a Physics QC Correctness. 
+    Currently, I am attending a data science bootcamp at dibimbing.id. 
+    I have a passion for data science and enjoy making an impact through my work.
+
+    If you have any questions regarding this project, feel free to reach out to me in my social media below.
+
+    Thank you for visiting my project!
+
+    ---
+
+    - **Gmail** : [novitafitriani51@gmail.com](mailto:novitafitriani51@gmail.com)
+    - **LinkedIn** : [linkedin.com/in/novitafitriani/](https://www.linkedin.com/in/novitafitriani)
+    - **GitHub** : [github.com/novitaftr](https://github.com/novitaftr)
+    - **Website** : [novitaftr.github.io](https://novitaftr.github.io/)
+    """
+
+    st.info(author_2)
     st.divider()
